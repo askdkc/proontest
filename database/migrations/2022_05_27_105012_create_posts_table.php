@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('body');
             $table->timestamps();
             
-            // PGROONGAのEXTENSIONない人用
-            // DB::statement("CREATE EXTENSION pgroonga;");
+            // PGROONGAのEXTENSION無い人用
+            DB::statement("CREATE EXTENSION pgroonga;");
 
             $table->index(['id','title','body'], null, 'pgroonga');
         });

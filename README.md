@@ -10,6 +10,8 @@ cd proontest
 composer install
 cp .env.example .env
 
+php artisan key:generate
+
 vi .env
 
 ---こちらを自環境に合わせて適当に変えてください---
@@ -18,9 +20,9 @@ DB_USERNAME=root
 DB_PASSWORD=
 -------------------------------------------
 
-PGroongaのExtensionが入っていない人は
-database/migrations/2022_05_27_create_posts_table.phpの下記コメントアウト部分を外してご利用ください。
- // DB::statement("CREATE EXTENSION pgroonga;"); 
+PGroongaのExtensionを手動で入れてる人は
+database/migrations/2022_05_27_create_posts_table.phpの下記をコメントアウトしてご利用ください。
+  DB::statement("CREATE EXTENSION pgroonga;"); 
 
 
 下記コマンドでDB作成とサンプルデータを流し込みます（20万レコード流し込むので少し時間がかります）
@@ -29,7 +31,7 @@ php artisan migrate --seed
 
 php artisan serve
 
-http://localhost:8000 にアクセス
+http://127.0.0.1:8000 にアクセス
 ```
 
 ## SQLの処理時間確認

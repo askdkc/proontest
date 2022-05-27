@@ -20,12 +20,12 @@ DB_USERNAME=root
 DB_PASSWORD=
 -------------------------------------------
 
-PGroongaのExtensionを手動で入れてる人は
+PGroongaのExtensionをDB作成時に手動で入れてる人は
 database/migrations/2022_05_27_create_posts_table.phpの下記をコメントアウトしてご利用ください。
   DB::statement("CREATE EXTENSION pgroonga;"); 
 
 
-下記コマンドでDB作成とサンプルデータを流し込みます（20万レコード流し込むので少し時間がかります）
+下記コマンドでDB作成とサンプルデータを流し込みます（20万レコード流し込むので少し時間がかります。1〜2分程度。）
 php artisan migrate --seed
 
 

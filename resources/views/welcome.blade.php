@@ -12,10 +12,10 @@
     <body class="antialiased">
             <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100 ">
                 <div class="m-2 p-2">
-                    <a href="{{ route('like') }}" class="text-lg text-blue-600 underline">LIKE検索</a>
+                    <a href="{{ route('like') }}" class="text-lg text-blue-600 underline">LIKE検索(遅い)</a>
                 </div>
                 <div class="m-2 p-2">
-                    <a href="{{ route('zenbun') }}" class="text-lg text-blue-600 underline">PGroonga &@~全文検索</a>
+                    <a href="{{ route('zenbun') }}" class="text-lg text-blue-600 underline">PGroonga &@~全文検索(爆速)</a>
                 </div>
             </div>
     </body>

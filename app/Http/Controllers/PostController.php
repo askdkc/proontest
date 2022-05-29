@@ -30,8 +30,8 @@ class PostController extends Controller
         //上手く動く
         $query->orWhereRaw('body &` \'(paths @ "memo" || paths @ "maintext") && query("string", "ジョバンニ 銀河")\''); 
 
-        // ↑上記を上手く書こうと苦労中
-        // $query->orWhereRaw('body &` \'(paths @ "memo") && query("string", "?")\'', ['ジョバンニ 銀河']); 
+        // 受け取った検索キーワードを渡したいが上手く行かない
+        // $query->orWhereRaw('body &` \'(paths @ "memo" || paths @ "maintext") && query("string", "?")\'', ["ジョバンニ 銀河"]); 
 
         $posts = $query->orderBy('id')->paginate(20);
 

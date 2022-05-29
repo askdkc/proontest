@@ -1,7 +1,3 @@
-## このリポジトリについて
-
-PGroongaの全文検索を使うとLIKE検索よりも、何故か検索が遅いのを確かめるデモ
-
 ## 使い方
 
 ```
@@ -32,8 +28,24 @@ php artisan serve
 http://localhost:8000 にアクセス
 ```
 
-## SQLの処理時間確認
+## JSONB形式
 
-http://localhost:8000 にアクセス後「LIKE検索」と「&@~全文検索」をそれぞれ
-クリックして検索速度の違いを画面下のDebugBarにあるQueriesからご確認ください。
-PGroongaの全文検索である&@~が妙に遅いです。
+JSONB形式に対しての全文検索サンプル
+
+- jsonbには pgroonga_jsonb_ops_v2 を指定する必要あり
+- &@~を使用した全文検索の場合、jsonbの各項目に個別にインデックス生成が必要でスキーマレスには不向き
+
+
+以下のやり方でお試しください
+```
+git checkout jsonb
+
+dropdb proontest
+createdb proontest
+
+php artisan migrate --seed
+
+php artisan serve
+
+http://127.0.0.1:8000 にアクセス
+```

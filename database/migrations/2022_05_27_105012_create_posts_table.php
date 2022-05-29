@@ -17,13 +17,22 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('body');
+            $table->jsonb('body');
             $table->timestamps();
             
             // PGROONGAのEXTENSIONない人用
-            // DB::statement("CREATE EXTENSION pgroonga;");
+            DB::statement("CREATE EXTENSION pgroonga;");
 
-            $table->index(['id','title','body'], null, 'pgroonga');
+            $table->index([
+                'id',
+                // var_charには
+                DB::raw('title pgroonga_varchar_full_text_search_ops_v2'),
+            ], null, 'pgroonga');
+
+            $table->index([
+                // jsonbは別インデックス
+                DB::raw('body pgroonga_jsonb_ops_v2')
+            ], null, 'pgroonga');
         });
     }
 

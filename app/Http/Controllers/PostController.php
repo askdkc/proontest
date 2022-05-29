@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -12,10 +13,10 @@ class PostController extends Controller
     {
         $query = Post::query();
 
-        $query->Where('title', 'like', '%ジョバンニ%');
-        $query->Where('title', 'like', '%銀河%');
-        $query->orWhere('body', 'like', '%ジョバンニ%');
-        $query->Where('body', 'like', '%銀河%');
+        $query->Where('body->memo', 'like', '%ジョバンニ%');
+        $query->Where('body->memo', 'like', '%銀河%');
+        $query->orWhere('body->maintext', 'like', '%ジョバンニ%');
+        $query->Where('body->maintext', 'like', '%銀河%');
 
         $posts = $query->orderBy('id')->paginate(20);
 
@@ -26,10 +27,15 @@ class PostController extends Controller
     {
         $query = Post::query();
 
-        $query->orWhereRaw('title &@~ ?', ['ジョバンニ 銀河']);
-        $query->orWhereRaw('body &@~ ?', ['ジョバンニ 銀河']);
+        //上手く動く
+        $query->orWhereRaw('body &` \'(paths @ "memo" || paths @ "maintext") && query("string", "ジョバンニ 銀河")\''); 
+
+        // ↑上記を上手く書こうと苦労中
+        // $query->orWhereRaw('body &` \'(paths @ "memo") && query("string", "?")\'', ['ジョバンニ 銀河']); 
 
         $posts = $query->orderBy('id')->paginate(20);
+
+        $posts = $query->paginate(20);
 
         return view('results', \compact('posts'));
     }

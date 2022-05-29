@@ -35,10 +35,10 @@
                     </div>
                   </td>
                   <td class="px-2 py-4 w-30 max-w-min">
-                    <div class="text-sm text-gray-900">{{$post->title}}</div>
+                    <div class="text-sm text-gray-900">{{$post->body['title']}}</div>
                   </td>
                   <td class="px-2 py-2 text-sm text-gray-500 w-8/12 max-w-min break-all">
-                    <div class="text-sm text-gray-900">{{$post->body}}</div>
+                    <div class="text-sm text-gray-900">{{$post->body['memo']}}</div>
                   </td>
                 </tr>
                 @endforeach

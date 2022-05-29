@@ -22,9 +22,6 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        $posts = \App\Models\Post::factory(200000)->make();
-        $posts->chunk(200)->each(function($chunk) {
-            Post::insert($chunk->toArray());
-        });
+        $posts = \App\Models\Post::factory()->count(10000)->create();
     }
 }

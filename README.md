@@ -2,7 +2,7 @@
 
 pgroonga_query_extract_keywordsの呼び出し場所が悪いとデータ量が多い時にページネーションとか重たくなってPostgreSQLが死んじゃうテスト。
 
-### 再現用に作成した synonyms ブランチを使ってね
+### 再現用に作成したこの "synonyms" ブランチを使ってね
 ```
 git clone このURL
 cd proontest

@@ -22,6 +22,13 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        $posts = \App\Models\Post::factory()->count(10000)->create();
+        echo "20万ダミーレコード生成中。暇ならコーヒー入れに行ってね。\n";
+
+        for($i=0;$i<200;$i++)
+        {
+            Post::factory(1000)->create();
+        }
+
+        $this->call(SynonymSeeder::class);
     }
 }

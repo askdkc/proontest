@@ -1,8 +1,12 @@
-## 使い方
+## pgroonga_query_extract_keywordsの書き方で重たくなるサンプル
 
+pgroonga_query_extract_keywordsの呼び出し場所が悪いとデータ量が多い時にページネーションとか重たくなってPostgreSQLが死んじゃうテスト。
+
+### synonyms ブランチを使ってね
 ```
 git clone このURL
 cd proontest
+git checkout synonyms origin/synonyms
 composer install
 cp .env.example .env
 
@@ -14,11 +18,6 @@ DB_USERNAME=root
 DB_PASSWORD=
 -------------------------------------------
 
-PGroongaのExtensionが入っていない人は
-database/migrations/2022_05_27_create_posts_table.phpの下記コメントアウト部分を外してご利用ください。
- // DB::statement("CREATE EXTENSION pgroonga;"); 
-
-
 下記コマンドでDB作成とサンプルデータを流し込みます（20万レコード流し込むので少し時間がかります）
 php artisan migrate --seed
 
@@ -26,26 +25,8 @@ php artisan migrate --seed
 php artisan serve
 
 http://localhost:8000 にアクセス
-```
 
-## JSONB形式
+LIKE検索->通常のLike中間一致
 
-JSONB形式に対しての全文検索サンプル
-
-- jsonbには pgroonga_jsonb_ops_v2 を指定する必要あり
-- &@~を使用した全文検索の場合、jsonbの各項目に個別にインデックス生成が必要でスキーマレスには不向き
-
-
-以下のやり方でお試しください
-```
-git checkout jsonb
-
-dropdb proontest
-createdb proontest
-
-php artisan migrate --seed
-
-php artisan serve
-
-http://127.0.0.1:8000 にアクセス
+PGroonga 同義語検索->pgroonga_query_extract_keywordsの呼び出し場所が悪いとデータ量が多い時にページネーションとか重たくなってPostgreSQLが死んじゃうテスト。
 ```

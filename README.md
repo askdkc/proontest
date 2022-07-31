@@ -2,11 +2,13 @@
 
 pgroonga_query_extract_keywordsの呼び出し場所が悪いとデータ量が多い時にページネーションとか重たくなってPostgreSQLが死んじゃうテスト。
 
-### synonyms ブランチを使ってね
+### 再現用に作成した synonyms ブランチを使ってね
 ```
 git clone このURL
 cd proontest
-git checkout synonyms origin/synonyms
+
+git checkout -b synonyms origin/synonyms
+
 composer install
 cp .env.example .env
 
@@ -29,4 +31,7 @@ http://localhost:8000 にアクセス
 LIKE検索->通常のLike中間一致
 
 PGroonga 同義語検索->pgroonga_query_extract_keywordsの呼び出し場所が悪いとデータ量が多い時にページネーションとか重たくなってPostgreSQLが死んじゃうテスト。
+
+→ M1 Macbook Airでは耐えれたけど、いきなり死んだら
+databse/seeders/DatabaseSeeder.php のダミーレコード数調整してください
 ```

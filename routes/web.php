@@ -18,4 +18,4 @@ Route::get('/', function () {
 });
 
 Route::get('/like', [App\Http\Controllers\PostController::class, 'simplelike'])->name('like');
-Route::get('/zenbun', [App\Http\Controllers\PostController::class, 'zenbun'])->name('zenbun');
+Route::get('/zenbun', [App\Http\Controllers\PostController::class, 'synonymzenbun'])->name('zenbun');

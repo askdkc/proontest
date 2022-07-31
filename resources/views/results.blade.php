@@ -35,17 +35,17 @@
                     </div>
                   </td>
                   <td class="px-2 py-4 w-30 max-w-min">
-                    <div class="text-sm text-gray-900">{{$post->body['title']}}</div>
+                    <div class="text-sm text-gray-900">{{$post->body}}</div>
                   </td>
                   <td class="px-2 py-2 text-sm text-gray-500 w-8/12 max-w-min break-all">
-                    <div class="text-sm text-gray-900">{{$post->body['memo']}}</div>
+                    <div class="text-sm text-gray-900">{{$post->body}}</div>
                   </td>
                 </tr>
                 @endforeach
               </tbody>
             </table>
 
-            
+
         </div>
         <div class="w-full mx-auto items-top justify-center text-center">
         <div class="w-3/4 p-4 mx-auto">{{ $posts->links() }}</div>

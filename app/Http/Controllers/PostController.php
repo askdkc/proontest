@@ -8,35 +8,40 @@ use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
-    
+
     public function simplelike()
     {
         $query = Post::query();
 
-        $query->Where('body->memo', 'like', '%ジョバンニ%');
-        $query->Where('body->memo', 'like', '%銀河%');
-        $query->orWhere('body->maintext', 'like', '%ジョバンニ%');
-        $query->Where('body->maintext', 'like', '%銀河%');
+        $query->orWhere('title', 'like', '%ジョバンニ%');
+        $query->orWhere('title', 'like', '%牛%');
+        $query->orWhere('title', 'like', '%斉藤%');
+
+        $query->orWhere('body', 'like', '%ジョバンニ%');
+        $query->orWhere('body', 'like', '%牛%');
+        $query->orWhere('body', 'like', '%斉藤%');
 
         $posts = $query->orderBy('id')->paginate(20);
 
         return view('results', \compact('posts'));
     }
 
-    public function zenbun()
+    public function synonymzenbun()
     {
         $query = Post::query();
 
-        //上手く動く
-        $query->orWhereRaw('body &` \'(paths @ "memo" || paths @ "maintext") && query("string", "ジョバンニ 銀河")\''); 
+        $searchcolumn = ['title', 'body'];
 
-        // 受け取った検索キーワードを渡したいが上手く行かない
-        // $query->orWhereRaw('body &` \'(paths @ "memo" || paths @ "maintext") && query("string", "?")\'', ["ジョバンニ 銀河"]); 
+        $keyword = "ジョバンニ OR 牛 OR 斉藤";
 
-        $posts = $query->orderBy('id')->paginate(20);
+        // 各コラムを
+        foreach($searchcolumn as $column)
+        {
+          $query->orWhereRaw($column . ' &@~ pgroonga_query_expand(?, ?, ?, ?)',['synonyms','terms','terms',$keyword]);
+        }
 
         $posts = $query->paginate(20);
 
-        return view('results', \compact('posts'));
+        return view('results', compact('posts'));
     }
 }

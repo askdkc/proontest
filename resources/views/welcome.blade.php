@@ -15,7 +15,8 @@
                     <a href="{{ route('like') }}" class="text-lg text-blue-600 underline">LIKE検索</a>
                 </div>
                 <div class="m-2 p-2">
-                    <a href="{{ route('zenbun') }}" class="text-lg text-blue-600 underline">PGroonga &@~全文検索</a>
+                    <p class="text-center text-red-500 font-medium">！！重くて危険！！</p>
+                    <a href="{{ route('zenbun') }}" class="text-lg text-blue-600 underline">PGroonga 同義語検索</a>
                 </div>
             </div>
     </body>

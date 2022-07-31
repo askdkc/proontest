@@ -18,11 +18,7 @@ class PostFactory extends Factory
     {
         return [
             'title' => $this->faker->realText(10),
-            'body' => [
-                'subtitle' => $this->faker->realText(10),
-                'author' => $this->faker->name(),
-                'memo' => $this->faker->realTextBetween(20, 150)
-            ]
+            'body' => $this->faker->realText(100),
         ];
     }
 }

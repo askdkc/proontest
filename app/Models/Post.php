@@ -11,8 +11,8 @@ class Post extends Model
 
     protected $guarded = [];
 
-    protected $casts = [
-        'body' => 'array'
-    ];
+    // protected $casts = [
+    //     'body' => 'array'
+    // ];
 
 }

@@ -34,14 +34,17 @@ class PostController extends Controller
 
         $keyword = "ジョバンニ OR 牛 OR 斉藤";
 
-        // 各コラムを
+        // 各コラムを検索
         foreach($searchcolumn as $column)
         {
-          $query->orWhereRaw($column . ' &@~ pgroonga_query_expand(?, ?, ?, ?)',['synonyms','terms','terms',$keyword]);
+            $query->selectRaw("pgroonga_highlight_html($column, " .
+            "pgroonga_query_extract_keywords('$keyword'))" .
+            "AS highlighted_$column, $column");
+            $query->orWhereRaw($column . ' &@~ pgroonga_query_expand(?, ?, ?, ?)::varchar',['synonyms','terms','terms',$keyword]);
         }
 
         $posts = $query->paginate(20);
 
-        return view('results', compact('posts'));
+        return view('highlightresults', compact('posts'));
     }
 }

@@ -21,7 +21,7 @@ class PostController extends Controller
         $query->orWhere('body', 'like', '%牛%');
         $query->orWhere('body', 'like', '%斉藤%');
 
-        $posts = $query->orderBy('id')->paginate(20);
+        $posts = $query->orderBy('id')->paginate(50);
 
         return view('results', \compact('posts'));
     }
@@ -37,14 +37,11 @@ class PostController extends Controller
         // 各コラムを検索
         foreach($searchcolumn as $column)
         {
-            $query->selectRaw("pgroonga_highlight_html($column, " .
-            "pgroonga_query_extract_keywords('$keyword'))" .
-            "AS highlighted_$column, $column");
             $query->orWhereRaw($column . ' &@~ pgroonga_query_expand(?, ?, ?, ?)::varchar',['synonyms','terms','terms',$keyword]);
         }
 
-        $posts = $query->paginate(20);
+        $posts = $query->paginate(50);
 
-        return view('highlightresults', compact('posts'));
+        return view('highlightresults', compact('posts','keyword'));
     }
 }

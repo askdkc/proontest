@@ -16,12 +16,12 @@ class Post extends Model
     {
 
         $html = ( DB::select("select pgroonga_highlight_html('$data', " .
-            "pgroonga_query_extract_keywords('$keyword'))" .
+            "pgroonga_query_extract_keywords(pgroonga_query_expand('synonyms','terms','terms','$keyword')::varchar))" .
             "AS highlighted_$column")[0] );
 
-        $returnculumn = "highlighted_" . $column;
+        $returncolumn = "highlighted_" . $column;
         
-        return $html->$returnculumn;
+        return $html->$returncolumn;
 
     }
 

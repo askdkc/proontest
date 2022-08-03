@@ -21,7 +21,7 @@ class PostController extends Controller
         $query->orWhere('body', 'like', '%牛%');
         $query->orWhere('body', 'like', '%斉藤%');
 
-        $posts = $query->orderBy('id')->paginate(50);
+        $posts = $query->orderBy('id')->paginate(25);
 
         return view('results', \compact('posts'));
     }
@@ -40,7 +40,7 @@ class PostController extends Controller
             $query->orWhereRaw($column . ' &@~ pgroonga_query_expand(?, ?, ?, ?)::varchar',['synonyms','terms','terms',$keyword]);
         }
 
-        $posts = $query->paginate(50);
+        $posts = $query->paginate(25);
 
         return view('highlightresults', compact('posts','keyword'));
     }

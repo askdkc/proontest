@@ -14,7 +14,7 @@
                 <div class="m-2 p-2">
                     <a href="{{ route('like') }}" class="text-lg text-blue-600 underline">LIKE検索</a>
                 </div>
-                <div class="m-2 p-2">
+                <div class="m-2 p-2 text-center">
                     <p class="text-center text-red-500 font-medium">ハイライト対応。少し重かったのに気がつくと↑のLIKEよりも速い👀</p>
                     <a href="{{ route('zenbun') }}" class="text-lg text-blue-600 underline">PGroonga 同義語検索</a>
                 </div>

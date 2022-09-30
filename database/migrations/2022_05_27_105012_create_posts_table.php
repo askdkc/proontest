@@ -21,19 +21,17 @@ return new class extends Migration
             $table->timestamps();
             
             // PGROONGAのEXTENSIONない人用
-            DB::statement("CREATE EXTENSION pgroonga;");
+            DB::statement("CREATE EXTENSION IF NOT EXISTS pgroonga;");
 
-            $table->index([
-                'id',
-                // var_charには
-                DB::raw('title pgroonga_varchar_full_text_search_ops_v2'),
-            ], null, 'pgroonga');
-
-            $table->index([
-                // jsonbは別インデックス
-                DB::raw('body pgroonga_jsonb_ops_v2')
-            ], null, 'pgroonga');
         });
+
+
+        Schema::table('posts', function (Blueprint $table) {
+            DB::statement("CREATE INDEX pgroonga_index_title ON posts using pgroonga (\"title\" pgroonga_varchar_full_text_search_ops_v2);");
+
+            DB::statement("CREATE INDEX pgroonga_index_jsonb_body ON posts using pgroonga (\"body\" pgroonga_jsonb_ops_v2);");
+        });
+
     }
 
     /**

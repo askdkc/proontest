@@ -40,7 +40,7 @@ class PostController extends Controller
             $query->orWhereRaw($column . ' &@~ pgroonga_query_expand(?, ?, ?, ?)::varchar',['synonyms','terms','terms',$keyword]);
         }
 
-        $posts = $query->paginate(25);
+        $posts = $query->orderBy('id')->paginate(25);
 
         return view('highlightresults', compact('posts','keyword'));
     }

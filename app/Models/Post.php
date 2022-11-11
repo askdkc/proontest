@@ -20,8 +20,21 @@ class Post extends Model
             "AS highlighted_$column")[0] );
 
         $returncolumn = "highlighted_" . $column;
-        
+
         return $html->$returncolumn;
+
+    }
+
+    public static function snippet($data, $column, $keyword)
+    {
+
+        $html = ( DB::select("select unnest(pgroonga_snippet_html('$data', " .
+            "pgroonga_query_extract_keywords(pgroonga_query_expand('synonyms','terms','terms','$keyword')::varchar)))" .
+            "AS highlighted_$column") );
+
+        $returncolumn = "highlighted_" . $column;
+
+        return $html ? $html[0]->$returncolumn : $data;
 
     }
 

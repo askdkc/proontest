@@ -34,7 +34,7 @@ class Post extends Model
 
         $returncolumn = "highlighted_" . $column;
 
-        return $html ? $html[0]->$returncolumn : $data;
+        return $html ? $html[0]->$returncolumn : mb_substr($data, 0, 50);
 
     }
 
